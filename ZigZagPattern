@@ -1,0 +1,50 @@
+class Solution {
+    public String convert(String s, int numRows) {
+           
+        // Edge case: if only 1 row or input string is too short
+        if (numRows == 1 || s.length() <= numRows) {
+            return s;
+        }
+
+        // Create a StringBuilder for each row
+        StringBuilder[] rows = new StringBuilder[numRows];
+        for (int i = 0; i < numRows; i++) {
+            rows[i] = new StringBuilder();
+        }
+
+        // Initialize variables to traverse through the input string in zigzag
+        int currentRow = 0;
+        boolean goingDown = false;
+
+        // Traverse the string character by character
+        for (char c : s.toCharArray()) {
+            rows[currentRow].append(c);
+            // Change direction when hitting the top or bottom row
+            if (currentRow == 0 || currentRow == numRows - 1) {
+                goingDown = !goingDown;
+            }
+            // Move up or down depending on the current direction
+            currentRow += goingDown ? 1 : -1;
+        }
+
+        // Combine all rows to form the final result
+        StringBuilder result = new StringBuilder();
+        for (StringBuilder row : rows) {
+            result.append(row);
+        }
+
+        return result.toString();
+    
+    }
+}
+
+/*
+Input: s = "PAYPALISHIRING", numRows = 4
+Output: "PINALSIGYAHRPI"
+Explanation:
+P     I    N
+A   L S  I G
+Y A   H R
+P     I
+
+*/
