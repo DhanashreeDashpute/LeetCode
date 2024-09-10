@@ -1,0 +1,34 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+          List<String> result = new ArrayList<>();
+        backtrack(result, "", 0, 0, n);
+        return result;
+    }
+
+    private static void backtrack(List<String> result, String current, int open, int close, int max) {
+        // If the current combination is complete, add it to the result list
+        if (current.length() == max * 2) {
+            result.add(current);
+            return;
+        }
+
+        // If we can still add an opening parenthesis, do it
+        if (open < max) {
+            backtrack(result, current + "(", open + 1, close, max);
+        }
+
+        // If we can still add a closing parenthesis, do it
+        if (close < open) {
+            backtrack(result, current + ")", open, close + 1, max);
+        }
+    }
+}
+
+/*Example 1:
+
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+Example 2:
+
+Input: n = 1
+Output: ["()"]*/
